@@ -1,5 +1,7 @@
 #!/bin/bash
 
+touch logs/registro_$(date +%F_%T).log #Genera archivo log con la fecha en su nombre
+
 #Funcion para: Registrar Matriculas
 Registrar_Matricula(){
         echo; echo "Registrar Matricula"
