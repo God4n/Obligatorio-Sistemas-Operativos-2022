@@ -1,5 +1,6 @@
 #!/bin/bash
 
+mkdir logs 2>/dev/null #Crea carpeta para almacenar registros
 touch logs/registro_$(date +%F_%T).log #Genera archivo log con la fecha en su nombre
 
 #Funcion para: Registrar Matriculas
@@ -32,7 +33,7 @@ Cambiar_Permiso_de_Modificacion(){
 
 while [ true ]; do
 	clear
-	figlet --gay -t -k "Seguros ConductORT"
+	figlet --gay -t -k "Seguros ConductORT" 2>/dev/null #2>/dev/null -> si no tiene figlet instalado no reporta errores
 	echo; echo "Seguros ConductORT"; echo
 
 	echo "1) Registrar Matricula"
