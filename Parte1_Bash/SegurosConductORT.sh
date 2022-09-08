@@ -5,7 +5,7 @@ touch logs/registro_$(date +%F_%T).log #Genera archivo log con la fecha en su no
 
 #Funcion para: Registrar Matriculas
 Registrar_Matricula(){
-        echo; echo "Registrar Matricula"
+	echo; echo "Registrar Matricula"
 	echo "Funcion 1"; echo;
 	
 }
@@ -13,20 +13,20 @@ Registrar_Matricula(){
 #Funcion para: Ver Matriculas Registradas
 Ver_Matriculas_Registradas(){
 	echo; echo "Ver Matriculas Registradas"
-        echo "Funcion 2"; echo;
+	echo "Funcion 2"; echo;
 	
 }
 
 #Funcion para: Buscar Matriculas por Usuario
 Buscar_Matriculas_por_Usuario(){
-        echo; echo "Buscar Matriculas por Usuario"
+	echo; echo "Buscar Matriculas por Usuario"
 	echo "Funcion 3"; echo;
 	
 }
 
 #Funcion para: Cambiar Permiso de Modificacion
 Cambiar_Permiso_de_Modificacion(){
-        echo; echo "Cambiar Permiso de Modificacion"
+	echo; echo "Cambiar Permiso de Modificacion"
 	echo "Funcion 4"; echo;
 	
 }
