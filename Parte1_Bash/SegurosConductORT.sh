@@ -12,24 +12,25 @@ Registrar_Matricula(){
 	#Pedir matricula
 	while [ true ]; do
 		read -p "Ingrese la matricula: " matricula
+		matricula=$(echo $matricula | tr '[:lower:]' '[:upper:]')
 		#Verificar matricula
 		IFS='-' read -ra arr_matricula <<< "$matricula" #Creamos array de la matricula todo raro
 		letras=${arr_matricula[0]}
 		numeros=${arr_matricula[1]}
 		if [ ${#arr_matricula[@]} -eq 2 -a ${#letras} -eq 3 -a ${#numeros} -eq 4 ]; then #Verifica tamaños
-			if [ ! $(echo $letras | grep [0-9] | wc -l) -gt 0 -a $(echo $letras | tr '[:upper:]' '[:lower:]' | grep "\bs*\b" | wc -l) -eq 1 ]; then #Verifica no tenga digitos y sea de montevideo
-				break ##### FALTA VALIDAR NUMEROS ######
-			else
-				echo -e "Matricula Invalida\n"
+			if [ ! $(echo $letras | grep [0-9] | wc -l) -gt 0 -a $(echo $letras | grep "\bS\w*\b" | wc -l) -eq 1 ]; then #Verifica no tenga digitos y sea de montevideo en las letras
+				if [ ! $(echo $numeros | grep "[A-Z]" | wc -l) -gt 0  ]; then #Verifica no tenga letras en la parte numerica
+					break 
+				fi
 			fi
-		else
-			echo -e "Matricula Invalida\n"
 		fi
+		echo -e "Matricula Invalida\n"
 	done
 	
 	#Pedir cedula
 	while [ true ]; do
 		read -p "Ingrese la cédula del responsable: " cedula
+		cedula=$(echo $cedula | tr '[:lower:]' '[:upper:]')
 		#Verificar cedula
 		IFS='-' read -ra arr_cedula <<< "$cedula" #Creamos array de la cedula todo raro
 		digitos=${arr_cedula[0]}
@@ -41,17 +42,15 @@ Registrar_Matricula(){
 			terceros=${arr_ced[2]}
 			if [ ${#arr_ced[@]} -eq 3 -a ${#primer} -eq 1 -a ${#segundos} -eq 3 -a ${#terceros} -eq 3 ]; then #Verifica tamaños
 				break
-			else
-				echo -e "Cédula Invalida\n"
 			fi
-		else
-			echo -e "Cédula Invalida\n"
 		fi
+		echo -e "Cédula Invalida\n"
 	done
 
 	#Pedir fecha
 	while [ true ]; do
 		read -p "Ingrese la fecha de vencimiento del seguro (YYYY-MM-DD): " fecha
+		fecha=$(echo $fecha | tr '[:lower:]' '[:upper:]')
 		#Verificar fecha
 		IFS='-' read -ra arr_fecha <<< "$fecha" #Creamos array de la fecha todo raro
 		ano=${arr_fecha[0]}
@@ -60,12 +59,9 @@ Registrar_Matricula(){
 		if [ ${#arr_fecha[@]} -eq 3 -a ${#ano} -eq 4 -a ${#mes} -le 2 -a ${#dia} -le 2 ]; then #Verifica tamaños
 			if [ $((dia)) -lt 32 -a $((dia)) -gt 0 -a $((mes)) -lt 13 -a $((mes)) -gt 0 ]; then #Verifica  dias y meses
 				break
-			else
-				echo -e "Fecha Invalida\n"
 			fi
-		else
-			echo -e "Fecha Invalida\n"
 		fi
+		echo -e "Fecha Invalida\n"
 	done
 
 	echo -e "$matricula | $cedula | $fecha\n"
