@@ -1,5 +1,15 @@
 #!/bin/bash
 
+#Colours
+greenColour="\e[0;32m\033[1m"
+endColour="\033[0m\e[0m"
+redColour="\e[0;31m\033[1m"
+blueColour="\e[0;34m\033[1m"
+yellowColour="\e[0;33m\033[1m"
+purpleColour="\e[0;35m\033[1m"
+turquoiseColour="\e[0;36m\033[1m"
+grayColour="\e[0;37m\033[1m"
+
 mkdir logs 2>/dev/null #Crea carpeta para almacenar registros
 log_file=logs/registro_$(date +%F_%T).log #Variable para referenciar al archivo log
 
@@ -68,15 +78,15 @@ Ver_Matriculas_Registradas(){
         	if [ $(echo $ano_matricula | grep "\b0\w*\b" -c) -eq 1 ]; then ano_matricula=$(echo $ano_matricula | tr -d "0"); fi
 
 		#Verificar estado de la matricula (vencida o en orden)
-		estado="En orden"
+		estado="${greenColour}En orden${endColour}"
 		if [ $((ano_matricula)) -lt $((ano_actual)) ]; then
-        	    estado="Vencido "
+        	    estado="${redColour}Vencido ${endColour}"
         	elif [ $((ano_matricula)) -eq $((ano_actual)) ]; then
         	    if [ $((mes_matricula)) -lt $((mes_actual)) ]; then
-        	        estado="Vencido "
+        	        estado="${redColour}Vencido ${endColour}"
         	    elif [ $((mes_matricula)) -eq $((mes_actual)) ]; then
         	        if [ $((dia_matricula)) -lt $((dia_actual)) ]; then
-        	            estado="Vencido "
+        	            estado="${redColour}Vencido ${endColour}"
         	        fi
         	    fi
         	fi
