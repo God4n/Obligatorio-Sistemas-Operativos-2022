@@ -51,7 +51,7 @@ Pedir_Matricula(){
 
 #Funcion para: Registrar Matriculas
 Registrar_Matricula(){
-	echo -e "\n[+] Registrar Matricula"
+	echo -e "\n${blueColour}[+]${endColour} Registrar Matricula"
 
 	matricula=$(Pedir_Matricula)
 	cedula=$(Pedir_Cedula)
@@ -69,7 +69,7 @@ Registrar_Matricula(){
 
 #Funcion para: Ver Matriculas Registradas
 Ver_Matriculas_Registradas(){
-	echo -e "\n[+] Ver Matriculas Registradas"
+	echo -e "\n${blueColour}[+]${endColour} Ver Matriculas Registradas"
 	echo -e "\t${yellowColour}+------------+-------------+----------+${endColour}"
 	echo -e "\t${yellowColour}| Matriculas |   Cedulas   |  Estado  |${endColour}"
 	echo -e "\t${yellowColour}+------------+-------------+----------+${endColour}"
@@ -86,17 +86,34 @@ Ver_Matriculas_Registradas(){
 		fi
 
 		#Imprimir matriculas
-        echo -e "\t|  $(echo "$line" | cut -d "|" -f1) |$(echo "$line" | cut -d "|" -f2)| $estado |"
+        	echo -e "\t|  $(echo "$line" | cut -d "|" -f1) |$(echo "$line" | cut -d "|" -f2)| $estado |"
 		echo -e "\t+------------+-------------+----------+"
 	done < matriculas.txt
+
+	#Registrar en el log
+	echo -e "Operacion $(date +%T)\nVer Matriculas Registradas\n" >> $log_file
 }
 
 #Funcion para: Buscar Matriculas por Usuario
 Buscar_Matriculas_por_Usuario(){
-	echo; echo "Buscar Matriculas por Usuario"
+	echo -e "\n${blueColour}[+]${endColour} Buscar Matriculas por Usuario"
 	cedula=$(Pedir_Cedula)
-	cat matriculas.txt | grep $cedula | cut -d "|" -f1
-	echo -e "Hay $(cat matriculas.txt | grep $cedula -c) matricula/s asignadas al usuario"
+
+	#Imprimir matriculas del usuario
+	echo -e "\t${yellowColour}+-------------+${endColour}"
+	echo -e "\t${yellowColour}| Matricula/s |${endColour}"
+	echo -e "\t${yellowColour}+-------------+${endColour}"
+	
+	echo "$(cat matriculas.txt | grep $cedula | cut -d "|" -f1 | tr -d '|')" > logs/.auxFile
+	while IFS= read -r line; do 
+		echo -e "\t|  $line  |" 
+	done < logs/.auxFile
+	rm logs/.auxFile
+
+	echo -e "\t+-------------+"
+
+	#Registrar en el log
+        echo -e "Operacion $(date +%T)\nBuscar Matriculas del Usuario: $cedula\n" >> $log_file
 }
 
 #Funcion para: Cambiar Permiso de Modificacion
