@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#Colours
+#Colores
 greenColour="\e[0;32m\033[1m"
 endColour="\033[0m\e[0m"
 redColour="\e[0;31m\033[1m"
@@ -55,44 +55,23 @@ Registrar_Matricula(){
 #Funcion para: Ver Matriculas Registradas
 Ver_Matriculas_Registradas(){
 	echo -e "\n[+] Ver Matriculas Registradas"
-	echo -e "\t+------------+-------------+----------+"
-	echo -e "\t| Matriculas |   Cedulas   |  Estado  |"
-	echo -e "\t+------------+-------------+----------+"
+	echo -e "\t${yellowColour}+------------+-------------+----------+${endColour}"
+	echo -e "\t${yellowColour}| Matriculas |   Cedulas   |  Estado  |${endColour}"
+	echo -e "\t${yellowColour}+------------+-------------+----------+${endColour}"
 
+	fecha_actual=$(date +%F)
+	
 	while IFS= read -r line; do
 		fecha_matricula=$(echo "$line" | cut -d "|" -f3 | tr -d " ")
-        	dia_matricula=$(echo $fecha_matricula | cut -d "-" -f3)
-        	mes_matricula=$(echo $fecha_matricula | cut -d "-" -f2)
-        	ano_matricula=$(echo $fecha_matricula | cut -d "-" -f1)
-
-		dia_actual=$(date +%d)
-        	mes_actual=$(date +%m)
-        	ano_actual=$(date +%Y)
-
-		#Eliminar 0 (ceros) que hayan adelante para que no hayan errores al comparar
-        	if [ $(echo $dia_actual | grep "\b0\w\b" -c) -eq 1 ]; then dia_actual=$(echo $dia_actual | tr -d "0"); fi
-        	if [ $(echo $mes_actual | grep "\b0\w\b" -c) -eq 1 ]; then mes_actual=$(echo $mes_actual | tr -d "0"); fi
-        	if [ $(echo $ano_actual | grep "\b0\w*\b" -c) -eq 1 ]; then ano_actual=$(echo $ano_actual | tr -d "0"); fi
-		if [ $(echo $dia_matricula | grep "\b0\w\b" -c) -eq 1 ]; then dia_matricula=$(echo $dia_matricula | tr -d "0"); fi
-        	if [ $(echo $mes_matricula | grep "\b0\w\b" -c) -eq 1 ]; then mes_matricula=$(echo $mes_matricula | tr -d "0"); fi
-        	if [ $(echo $ano_matricula | grep "\b0\w*\b" -c) -eq 1 ]; then ano_matricula=$(echo $ano_matricula | tr -d "0"); fi
-
+		
 		#Verificar estado de la matricula (vencida o en orden)
 		estado="${greenColour}En orden${endColour}"
-		if [ $((ano_matricula)) -lt $((ano_actual)) ]; then
-        	    estado="${redColour}Vencido ${endColour}"
-        	elif [ $((ano_matricula)) -eq $((ano_actual)) ]; then
-        	    if [ $((mes_matricula)) -lt $((mes_actual)) ]; then
-        	        estado="${redColour}Vencido ${endColour}"
-        	    elif [ $((mes_matricula)) -eq $((mes_actual)) ]; then
-        	        if [ $((dia_matricula)) -lt $((dia_actual)) ]; then
-        	            estado="${redColour}Vencido ${endColour}"
-        	        fi
-        	    fi
-        	fi
+		if [ $(date -d $fecha_matricula +%s) -lt $(date -d $fecha_actual +%s) ]; then
+			estado="${redColour}Vencido ${endColour}"
+		fi
 
 		#Imprimir matriculas
-        	echo -e "\t|  $(echo "$line" | cut -d "|" -f1) |$(echo "$line" | cut -d "|" -f2)| $estado |"
+        echo -e "\t|  $(echo "$line" | cut -d "|" -f1) |$(echo "$line" | cut -d "|" -f2)| $estado |"
 		echo -e "\t+------------+-------------+----------+"
 	done < matriculas.txt
 }
