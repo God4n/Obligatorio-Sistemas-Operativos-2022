@@ -13,34 +13,49 @@ grayColour="\e[0;37m\033[1m"
 mkdir logs 2>/dev/null #Crea carpeta para almacenar registros
 log_file=logs/registro_$(date +%F_%T).log #Variable para referenciar al archivo log
 
-#Funcion para: Registrar Matriculas
-Registrar_Matricula(){
-	echo -e "\n[+] Registrar Matricula"
+#//////////////////////////////// FUNCIONES AUXILIARES ////////////////////////////////
 
-	#Pedir matricula
+Pedir_Cedula(){
+	while [ true ]; do
+		read -p "Ingrese la cédula del responsable: " cedula
+		#Verificar cedula
+		if [ $(echo $cedula | grep -E "\b[0-9]{1}\.[0-9]{3}\.[0-9]{3}-[0-9]{1}\b" -c) -eq 1 ]; then break; fi
+		echo -e "Cédula Invalida\n" > /dev/stderr
+	done
+	echo $cedula
+}
+
+Pedir_Fecha(){
+	while [ true ]; do
+		read -p "Ingrese la fecha de vencimiento del seguro (YYYY-MM-DD): " fecha
+		#Verificar fecha
+		if [ $(echo $fecha | grep -E "\b[0-9]{4}-([1-9]|0[1-9]|1[012])-([1-9]|[012][0-9]|3[01])\b" -c) -eq 1 ]; then break; fi
+		echo -e "Fecha Invalida\n" > /dev/stderr
+	done
+	echo $fecha
+}
+
+Pedir_Matricula(){
 	while [ true ]; do
 		read -p "Ingrese la matricula: " matricula
 		matricula=$(echo $matricula | tr '[:lower:]' '[:upper:]')
 		#Verificar matricula
 		if [ $(echo $matricula | grep -E "\bS[A-Z]{2}-[0-9]{4}\b" -c) -eq 1 ]; then break; fi
-		echo -e "Matricula Invalida\n"
+		echo -e "Matricula Invalida\n" > /dev/stderr
 	done
+	echo $matricula
+}
+	
+#//////////////////////////////// FIN DE FUNCIONES AUXILIARES ////////////////////////////////
 
-	#Pedir cedula
-	while [ true ]; do
-		read -p "Ingrese la cédula del responsable: " cedula
-		#Verificar cedula
-		if [ $(echo $cedula | grep -E "\b[0-9]{1}\.[0-9]{3}\.[0-9]{3}-[0-9]{1}\b" -c) -eq 1 ]; then break; fi
-		echo -e "Cédula Invalida\n"
-	done
 
-	#Pedir fecha
-	while [ true ]; do
-		read -p "Ingrese la fecha de vencimiento del seguro (YYYY-MM-DD): " fecha
-		#Verificar fecha
-		if [ $(echo $fecha | grep -E "\b[0-9]{4}-([1-9]|0[1-9]|1[12])-([1-9]|[012][0-9]|3[01])\b" -c) -eq 1 ]; then break; fi
-		echo -e "Fecha Invalida\n"
-	done
+#Funcion para: Registrar Matriculas
+Registrar_Matricula(){
+	echo -e "\n[+] Registrar Matricula"
+
+	matricula=$(Pedir_Matricula)
+	cedula=$(Pedir_Cedula)
+	fecha=$(Pedir_Fecha)
 
 	echo -e "$matricula | $cedula | $fecha\n"
 	echo -e "Operacion exitosa!"
@@ -79,8 +94,9 @@ Ver_Matriculas_Registradas(){
 #Funcion para: Buscar Matriculas por Usuario
 Buscar_Matriculas_por_Usuario(){
 	echo; echo "Buscar Matriculas por Usuario"
-	echo "Funcion 3"; echo;
-
+	cedula=$(Pedir_Cedula)
+	cat matriculas.txt | grep $cedula | cut -d "|" -f1
+	echo -e "Hay $(cat matriculas.txt | grep $cedula -c) matricula/s asignadas al usuario"
 }
 
 #Funcion para: Cambiar Permiso de Modificacion
