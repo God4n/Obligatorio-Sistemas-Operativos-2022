@@ -47,13 +47,15 @@ Pedir_Matricula(){
 }
 
 Bloquear_Modificaciones(){
-	$(sudo -S chmod 444 matriculas.txt)
+	read -p "Ingresar password admin" contrasena
+	$(sudo -S chmod 444 matriculas.txt) < contrasena
 	echo "Modificaciones bloqueadas"
 	echo $(ls -l matriculas.txt)
 }
 
 Permitir_Modificaciones(){
-	$(sudo chmod 666 matriculas.txt)
+	read -p "Ingresar password admin" contrasena
+	$(sudo chmod 666 matriculas.txt) < contrasena
 	echo "Modificaciones habilitadas"
 	echo $(ls -l matriculas.txt)
 }
@@ -62,10 +64,8 @@ Permitir_Modificaciones(){
 
 #Funcion para: Cambiar Permiso de Modificacion
 Cambiar_Permiso_de_Modificacion(){
-	pedir=true
 	while [ true ];do
 	clear
-	echo $pedir
 	echo; echo "Cambiar Permiso de Modificacion"
 	echo "1) Bloquear modificaciones"; 
 	echo -e "2) Permitir modificaciones\n";
@@ -75,19 +75,10 @@ Cambiar_Permiso_de_Modificacion(){
 	read opcion
 
 	case $opcion in 
-		'1')	if [ $pedir ]; then
-					echo "Ingresar password admin"
-				fi
-				pedir=false
-				echo $pedir
-				Bloquear_Modificaciones
+		'1')	Bloquear_Modificaciones
 				break
 			;;
-		'2')	if [ $pedir ]; then
-					echo "Ingresar password admin"
-				fi
-				pedir=false
-				Permitir_Modificaciones
+		'2')	Permitir_Modificaciones
 				break
 			;;
 		*) echo -e "No es una opcion valida\n"
