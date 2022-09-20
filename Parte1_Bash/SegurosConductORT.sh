@@ -50,11 +50,15 @@ Modificar_Permiso(){
 	echo "Ingresar password admin"
 	$(sudo chmod $1 matriculas.txt)
 	case $1 in
-		'444') echo "Modificaciones bloqueadas"
+		'444') 	echo "Modificaciones bloqueadas"
+				msg="Solo Lectura"
 			;;
-		'666') echo "Modificaciones habilitadas"
+		'666') 	echo "Modificaciones habilitadas"
+				msg="Lectura y Escritura"
 			;;
 	esac
+	#Registrar en el log
+	echo -e "Operacion $(date +%T)\nCambiar Permiso de Modificacion\nSe cambió permiso de modificación a $msg\n" >> $log_file
 }
 	
 #//////////////////////////////// FIN DE FUNCIONES AUXILIARES ////////////////////////////////
@@ -64,19 +68,18 @@ Cambiar_Permiso_de_Modificacion(){
 	while [ true ];do
 		echo -e "\n${blueColour}[+]${endColour} Cambiar Permiso de Modificacion"
 		echo -e "\t1) Bloquear modificaciones"; 
-		echo -e "\t2) Permitir modificaciones\n";
-		read -p 'Seleccione una opcion: ' opcion
+		echo -e "\t2) Permitir modificaciones";
+		echo -e "\t3) Volver al menu\n"
+		read -p 'Seleccione una opción: ' opcion
 
 		case $opcion in 
-			'1')	Modificar_Permiso 444
-					#Registrar en el log
-					echo -e "Operacion $(date +%T)\nCambiar Permiso de Modificacion\n"Se cambió permiso de modificación a Solo lectura"" >> $log_file
-					break
+			'1') Modificar_Permiso 444
+				break
 				;;
-			'2')	Modificar_Permiso 666
-					#Registrar en el log
-					echo -e "Operacion $(date +%T)\nCambiar Permiso de Modificacion\n"Se cambió permiso de modificación a Lectura y Escritura"" >> $log_file
-					break
+			'2') Modificar_Permiso 666
+				break
+				;;
+			'3') break
 				;;
 			*) 	echo -e "No es una opcion valida\n"
 				echo; read -sp "Presione [ENTER] para continuar"
@@ -164,7 +167,7 @@ while [ true ]; do
 	echo "4) Cambiar Permiso de Modificacion"
 	echo -e "5) Salir\n"
 
-	read -p 'Seleccione una opcion: ' x
+	read -p 'Seleccione una opción: ' x
 	case $x in
 		'1')	Registrar_Matricula
 			;;
