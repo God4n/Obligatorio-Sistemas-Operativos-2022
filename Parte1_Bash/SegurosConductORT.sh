@@ -50,14 +50,12 @@ Bloquear_Modificaciones(){
 	echo "Ingresar password admin"
 	$(sudo -S chmod 444 matriculas.txt)
 	echo "Modificaciones bloqueadas"
-	echo $(ls -l matriculas.txt)
 }
 
 Permitir_Modificaciones(){
 	echo "Ingresar password admin"
 	$(sudo chmod 666 matriculas.txt)
 	echo "Modificaciones habilitadas"
-	echo $(ls -l matriculas.txt)
 }
 	
 #//////////////////////////////// FIN DE FUNCIONES AUXILIARES ////////////////////////////////
@@ -76,9 +74,12 @@ Cambiar_Permiso_de_Modificacion(){
 
 	case $opcion in 
 		'1')	Bloquear_Modificaciones
+				#Registrar en el log
+				echo -e "Operacion $(date +%T)\nCambiar Permiso de Modificacion\n"Se cambió permiso de modificación a Solo lectura"" >> $log_file
 				break
 			;;
 		'2')	Permitir_Modificaciones
+				echo -e "Operacion $(date +%T)\nCambiar Permiso de Modificacion\n"Se cambió permiso de modificación a Lectura y Escritura"" >> $log_file
 				break
 			;;
 		*) echo -e "No es una opcion valida\n"
