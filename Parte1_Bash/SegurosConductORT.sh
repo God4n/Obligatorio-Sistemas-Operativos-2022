@@ -46,16 +46,15 @@ Pedir_Matricula(){
 	echo $matricula
 }
 
-Bloquear_Modificaciones(){
+Modificar_Permiso(){
 	echo "Ingresar password admin"
-	$(sudo -S chmod 444 matriculas.txt)
-	echo "Modificaciones bloqueadas"
-}
-
-Permitir_Modificaciones(){
-	echo "Ingresar password admin"
-	$(sudo chmod 666 matriculas.txt)
-	echo "Modificaciones habilitadas"
+	$(sudo chmod $1 matriculas.txt)
+	case $1 in
+		'444') echo "Modificaciones bloqueadas"
+			;;
+		'666') echo "Modificaciones habilitadas"
+			;;
+	esac
 }
 	
 #//////////////////////////////// FIN DE FUNCIONES AUXILIARES ////////////////////////////////
@@ -63,30 +62,30 @@ Permitir_Modificaciones(){
 #Funcion para: Cambiar Permiso de Modificacion
 Cambiar_Permiso_de_Modificacion(){
 	while [ true ];do
-	clear
-	echo; echo "Cambiar Permiso de Modificacion"
-	echo "1) Bloquear modificaciones"; 
-	echo -e "2) Permitir modificaciones\n";
+		echo -e "\n${blueColour}[+]${endColour} Cambiar Permiso de Modificacion"
+		echo -e "\t1) Bloquear modificaciones"; 
+		echo -e "\t2) Permitir modificaciones\n";
+		read -p 'Seleccione una opcion: ' opcion
 
-	
-
-	read opcion
-
-	case $opcion in 
-		'1')	Bloquear_Modificaciones
-				#Registrar en el log
-				echo -e "Operacion $(date +%T)\nCambiar Permiso de Modificacion\n"Se cambió permiso de modificación a Solo lectura"" >> $log_file
-				break
-			;;
-		'2')	Permitir_Modificaciones
-				echo -e "Operacion $(date +%T)\nCambiar Permiso de Modificacion\n"Se cambió permiso de modificación a Lectura y Escritura"" >> $log_file
-				break
-			;;
-		*) echo -e "No es una opcion valida\n"
-			;;
-	esac		
+		case $opcion in 
+			'1')	Modificar_Permiso 444
+					#Registrar en el log
+					echo -e "Operacion $(date +%T)\nCambiar Permiso de Modificacion\n"Se cambió permiso de modificación a Solo lectura"" >> $log_file
+					break
+				;;
+			'2')	Modificar_Permiso 666
+					#Registrar en el log
+					echo -e "Operacion $(date +%T)\nCambiar Permiso de Modificacion\n"Se cambió permiso de modificación a Lectura y Escritura"" >> $log_file
+					break
+				;;
+			*) 	echo -e "No es una opcion valida\n"
+				echo; read -sp "Presione [ENTER] para continuar"
+				clear
+				;;
+		esac		
 	done
 }
+
 #Funcion para: Registrar Matriculas
 Registrar_Matricula(){
 	echo -e "\n${blueColour}[+]${endColour} Registrar Matricula"
