@@ -45,6 +45,19 @@ Pedir_Matricula(){
 	done
 	echo $matricula
 }
+
+Bloquear_Modificaciones(){
+	echo "Ingresar password admin"
+	read -p "[sudo] password for $(whoami):" contrasena
+
+	echo contrasena | sudo -S chmod 444 matriculas.txt
+	echo "Modificaciones bloqueadas"
+}
+
+Permitir_Modificaciones(){
+	$(sudo chmod 666 matriculas.txt)
+	echo "Modificaciones habilitadas"
+}
 	
 #//////////////////////////////// FIN DE FUNCIONES AUXILIARES ////////////////////////////////
 
@@ -103,24 +116,37 @@ Buscar_Matriculas_por_Usuario(){
 	echo -e "\t${yellowColour}+-------------+${endColour}"
 	echo -e "\t${yellowColour}| Matricula/s |${endColour}"
 	echo -e "\t${yellowColour}+-------------+${endColour}"
-	
 	echo "$(cat matriculas.txt | grep $cedula | cut -d "|" -f1 | tr -d '|')" > logs/.auxFile
 	while IFS= read -r line; do 
 		echo -e "\t|  $line  |" 
 	done < logs/.auxFile
 	rm logs/.auxFile
-
 	echo -e "\t+-------------+"
-
+	echo "Hay $(cat matriculas.txt | grep $cedula -c) matricula/s asignadas al usuario"
 	#Registrar en el log
         echo -e "Operacion $(date +%T)\nBuscar Matriculas del Usuario: $cedula\n" >> $log_file
 }
 
 #Funcion para: Cambiar Permiso de Modificacion
 Cambiar_Permiso_de_Modificacion(){
+	while [ true ];do
+	clear
 	echo; echo "Cambiar Permiso de Modificacion"
-	echo "Funcion 4"; echo;
+	echo "1) Bloquear modificaciones"; 
+	echo -e "2) Permitir modificaciones\n";
 
+	read opcion
+	case $opcion in 
+		'1')	Bloquear_Modificaciones
+				break
+			;;
+		'2')	Permitir_Modificaciones
+				break
+			;;
+		*) echo -e "No es una opcion valida\n"
+			;;
+	esac		
+	done
 }
 
 while [ true ]; do
