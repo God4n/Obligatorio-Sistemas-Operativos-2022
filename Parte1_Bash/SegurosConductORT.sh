@@ -47,15 +47,15 @@ Pedir_Matricula(){
 }
 
 Bloquear_Modificaciones(){
-	read -p "Ingresar password admin" contrasena
-	$(sudo -S chmod 444 matriculas.txt) < contrasena
+	echo "Ingresar password admin"
+	$(sudo -S chmod 444 matriculas.txt)
 	echo "Modificaciones bloqueadas"
 	echo $(ls -l matriculas.txt)
 }
 
 Permitir_Modificaciones(){
-	read -p "Ingresar password admin" contrasena
-	$(sudo chmod 666 matriculas.txt) < contrasena
+	echo "Ingresar password admin"
+	$(sudo chmod 666 matriculas.txt)
 	echo "Modificaciones habilitadas"
 	echo $(ls -l matriculas.txt)
 }
