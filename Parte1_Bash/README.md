@@ -32,7 +32,7 @@ de bash y cada ejecución genera un archivo log diferente con nombre único.
 
 Salida de Ejemplo para un log dado:
 
-![Untitled](README%20BASH%20624729add53f417eb35902c225d86e38/Untitled.png)
+![Ejemplo Logs](Images/imagen_logs.png)
 
 ### Opción 1 Registrar Matrículas
 
@@ -61,7 +61,7 @@ es decir se generará en el mismo directorio que esté.
 
 Ejemplo de ejecución:
 
-![Untitled](README%20BASH%20624729add53f417eb35902c225d86e38/Untitled%201.png)
+![Ejemplo Opcion1](Images/imagen_registrar_matricula.png)
 
 ### Opción 2 Ver Matrículas Registradas
 
@@ -76,7 +76,7 @@ Condiciones:
 
 Ejemplo de salida:
 
-![Untitled](README%20BASH%20624729add53f417eb35902c225d86e38/Untitled%202.png)
+![Ejemplo Opcion2](Images/imagen_ver_matriculas.png)
 
 ### Opción 3 Buscar Matrículas por Usuario
 
@@ -94,7 +94,7 @@ Condiciones:
 
 Ejemplo de ejecución:
 
-![Untitled](README%20BASH%20624729add53f417eb35902c225d86e38/Untitled%203.png)
+![Ejemplo Opcion3](Images/imagen_buscar_matriculas.png)
 
 ### Opción 4 Cambiar Permiso de Modificación
 
@@ -109,7 +109,7 @@ realizada correctamente”
 
 Ejemplo de ejecución:
 
-![Untitled](README%20BASH%20624729add53f417eb35902c225d86e38/Untitled%204.png)
+![Ejemplo Opcion4](Images/imagen_cambiar_permisos.png)
 
 Condiciones:
 
