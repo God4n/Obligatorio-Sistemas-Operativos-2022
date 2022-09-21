@@ -1,6 +1,4 @@
-# README BASH
-
-## Bash Scripting (10 Pts)
+# Bash Scripting
 
 Deberá realizar un script de bash para la aseguradora ConductORT, se quiere que el gerente
 de la zona de Montevideo, tenga la posibilidad de supervisar las operaciones de la empresa.

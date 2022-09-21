@@ -1,4 +1,4 @@
-# README
+# Obligatorio Sistemas Operativos
 
 | Identificación del proyecto |
 | --- |
