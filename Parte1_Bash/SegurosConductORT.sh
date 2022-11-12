@@ -98,13 +98,25 @@ Registrar_Matricula(){
 	fecha=$(Pedir_Fecha)
 
 	echo -e "$matricula | $cedula | $fecha\n"
-	echo -e "Operacion exitosa!"
+	
 
 	#Guarda matricula en el archivo matriculas.txt
-	echo "$matricula | $cedula | $fecha" >> matriculas.txt
+	if [[ $(ls -l matriculas.txt | cut -b -3) == "-rw" ]]; then
+		echo -e "Operacion exitosa!"
 
-	#Registrar en el log
-	echo -e "Operacion $(date +%T)\nRegistrar Matricula\n[ $matricula | $cedula | $fecha ]\n" >> $log_file
+		echo "$matricula | $cedula | $fecha" >> matriculas.txt
+
+		#Registrar en el log - Operacion exitosa
+		echo -e "Operacion $(date +%T)\nRegistrar Matricula\n[ $matricula | $cedula | $fecha ]\n" >> $log_file
+	
+	else
+		echo -e "La matricula no se registro por falta de permisos"
+		
+		#Registrar en el log - Operacion fallida
+		echo -e "Operacion $(date +%T)\nRegistrar Matricula\nNo se guardo en el archivo matriculas.txt\n[ $matricula | $cedula | $fecha ]\n" >> $log_file
+	fi
+
+	
 }
 
 #Funcion para: Ver Matriculas Registradas

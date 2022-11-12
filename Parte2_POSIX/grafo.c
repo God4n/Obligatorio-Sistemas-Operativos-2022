@@ -5,21 +5,21 @@
 #include <unistd.h>
 
 void* printE (void* x){
-    usleep((rand()%100)*1000);
+    usleep((rand()%500)*1000);
     printf("E");
     pthread_exit(0);
 
 }
 
 void* printD (void* x){
-    usleep((rand()%100)*1000);
+    usleep((rand()%500)*1000);
     printf("D");
     pthread_exit(0);
 
 }
 
 void* printC (void* x){
-    usleep((rand()%100)*1000);
+    usleep((rand()%500)*1000);
     printf("C");
     pthread_t t1, t2;
     pthread_attr_t attr;
@@ -36,7 +36,7 @@ void* printC (void* x){
 }
 
 void* printB(void* x){
-    usleep((rand()%100)*1000);
+    usleep((rand()%500)*1000);
     printf("B");
     pthread_exit(0);
 }
