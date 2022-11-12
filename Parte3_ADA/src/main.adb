@@ -24,6 +24,7 @@ procedure Main is
                S:= S+1;
                Put_Line("Barco " & Integer'Image(b) & " se retira del puerto");
             end V;
+         or terminate;
          end select;
       end Loop;
    end Puerto;
@@ -63,7 +64,8 @@ procedure Main is
                espacios(lugar):=0;
                S:= S+1;
                Barcos(b).irGrua;
-               end V;
+            end V;
+         or terminate;
          End Select;
       End loop;
    end atracaderoDeEspera;
@@ -101,6 +103,7 @@ procedure Main is
                   S:=S+1;
                end if;
             end V;
+         or terminate;
          End Select;
       End loop;
    end Grua;
