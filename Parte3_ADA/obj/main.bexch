@@ -1,0 +1,22 @@
+[GENERATED OBJECT FILE]
+b__main.o
+[PROJECT FILES]
+D:\Escritorio\ORT\Semestre 4\Sistemas Operativos\Obligatorio\Obligatorio-Sistemas-Operativos-2022\Parte3_ADA\parte3_ada.gpr
+20221112001232 3ea6ba4d56dba7891b76c6de124bcdca
+[BOUND OBJECT FILES]
+D:\Escritorio\ORT\Semestre 4\Sistemas Operativos\Obligatorio\Obligatorio-Sistemas-Operativos-2022\Parte3_ADA\obj\main.o
+[GENERATED SOURCE FILES]
+b__main.ads
+b__main.adb
+b__main.ali
+[RESULTING OPTIONS]
+-LD:\Escritorio\ORT\Semestre 4\Sistemas Operativos\Obligatorio\Obligatorio-Sistemas-Operativos-2022\Parte3_ADA\obj\
+-LD:\Escritorio\ORT\Semestre 4\Sistemas Operativos\Obligatorio\Obligatorio-Sistemas-Operativos-2022\Parte3_ADA\obj\
+-LD:/programas/ada/lib/gcc/x86_64-w64-mingw32/10.3.1/adalib/
+-static
+-static-libgcc
+D:/programas/ada/lib/gcc/x86_64-w64-mingw32/10.3.1/adalib/libgnarl.a
+D:/programas/ada/lib/gcc/x86_64-w64-mingw32/10.3.1/adalib/libgnat.a
+-Xlinker
+--stack=0x200000,0x1000
+-mthreads
