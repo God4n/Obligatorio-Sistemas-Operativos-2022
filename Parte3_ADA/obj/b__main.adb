@@ -324,10 +324,10 @@ package body ada_main is
    end;
 
 --  BEGIN Object file/option list
-   --   D:\Escritorio\ORT\Semestre 4\Sistemas Operativos\Obligatorio\Obligatorio-Sistemas-Operativos-2022\Parte3_ADA\obj\main.o
-   --   -LD:\Escritorio\ORT\Semestre 4\Sistemas Operativos\Obligatorio\Obligatorio-Sistemas-Operativos-2022\Parte3_ADA\obj\
-   --   -LD:\Escritorio\ORT\Semestre 4\Sistemas Operativos\Obligatorio\Obligatorio-Sistemas-Operativos-2022\Parte3_ADA\obj\
-   --   -LD:/programas/ada/lib/gcc/x86_64-w64-mingw32/10.3.1/adalib/
+   --   C:\Users\silva\OneDrive\Documentos\Ingenieria\ORT_4to_semestre\Sistemas Operativos\obl1\ObligatorioSO_2022\Parte3_ADA\obj\main.o
+   --   -LC:\Users\silva\OneDrive\Documentos\Ingenieria\ORT_4to_semestre\Sistemas Operativos\obl1\ObligatorioSO_2022\Parte3_ADA\obj\
+   --   -LC:\Users\silva\OneDrive\Documentos\Ingenieria\ORT_4to_semestre\Sistemas Operativos\obl1\ObligatorioSO_2022\Parte3_ADA\obj\
+   --   -LC:/gnat/2021/lib/gcc/x86_64-w64-mingw32/10.3.1/adalib/
    --   -static
    --   -lgnarl
    --   -lgnat
